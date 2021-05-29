@@ -1,5 +1,7 @@
+import { observer } from "mobx-react-lite";
 import React, { FC } from "react";
 import styled from "styled-components";
+import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import { LeftMenuLinks } from "./LeftMenuLinks";
@@ -21,17 +23,20 @@ const LeftMenuWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const LeftMenu: FC = () => {
+export const LeftMenu: FC = observer(() => {
+  const { usersStore } = useStore();
+  const loggedUser = usersStore.user;
+
   return (
     <LeftMenuWrapper>
       <LeftMenuUsersWrapper>
         <LeftMenuUserDetails
-          name={"Tomasz Lesniak"}
-          companyName={"ABB"}
-          image={"https://via.placeholder.com/600/24f355"}
+          name={loggedUser!.name}
+          companyName={loggedUser!.company.name}
+          image={usersStore.photo?.url}
         />
       </LeftMenuUsersWrapper>
       <LeftMenuLinks />
     </LeftMenuWrapper>
   );
-};
+});

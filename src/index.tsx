@@ -6,11 +6,17 @@ import { Reset } from "styled-reset";
 
 import MainPage from "./components/MainPage/MainPage";
 import TopBar from "./components/TopBar/TopBar";
+import { BrowserRouter as Router } from "react-router-dom";
+import { store, StoreContext } from "./reducers/storeContext";
 
 ReactDOM.render(
   <>
     <Reset />
-    <MainPage />,
+    <StoreContext.Provider value={store}>
+      <Router>
+        <MainPage />
+      </Router>
+    </StoreContext.Provider>
   </>,
   document.getElementById("root")
 );

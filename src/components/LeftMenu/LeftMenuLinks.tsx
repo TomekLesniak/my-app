@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
@@ -13,12 +14,13 @@ const LinkWrapper = styled.div`
   margin: 0.5rem 0;
 `;
 
-const LinkText = styled.span`
+const LinkText = styled(Link)`
   flex-grow: 1;
   margin: 0 1rem;
   color: #7c7a7d;
   font-weight: bold;
   font-size: 1.2rem;
+  text-decoration: none;
 `;
 
 const Icon = styled.img`
@@ -31,15 +33,15 @@ export const LeftMenuLinks: FC = () => {
     <LinksWrapper>
       <LinkWrapper>
         <Icon src="./icons/publications.svg" />
-        <LinkText>Publications</LinkText>
+        <LinkText to="/publications">Publications</LinkText>
       </LinkWrapper>
       <LinkWrapper>
         <Icon src="./icons/ecosystem.svg" />
-        <LinkText>Ecosystem</LinkText>
+        <LinkText to="/ecosystem">Ecosystem</LinkText>
       </LinkWrapper>
       <LinkWrapper>
         <Icon src="./icons/entities.svg" />
-        <LinkText>Entities</LinkText>
+        <LinkText to="/entities">Entities</LinkText>
       </LinkWrapper>
     </LinksWrapper>
   );

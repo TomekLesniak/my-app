@@ -1,6 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import useDropdown from "react-dropdown-hook";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { User } from "../../entities/user";
+import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { sizes } from "../../styledHelpers/breakpoints";
 import { Colors } from "../../styledHelpers/Colors";
@@ -30,6 +33,9 @@ const MenuExpanding = styled.div`
   width: 100%;
   margin-left: 1rem;
   margin-top: 5px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const MenuText = styled.span`
@@ -81,25 +87,34 @@ const Icon = styled.img``;
 const TopBar: FC = () => {
   const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
 
+  const { usersStore } = useStore();
+  const loggedUser = usersStore.user;
+
   return (
     <TopBarWrapper>
       <Logo src="./icons/logo.png" />
       <Menu ref={wrapperRef}>
-        <img src="./icons/house.svg" alt="House" />
+        <Icon src="./icons/house.svg" alt="House" />
         <MenuExpanding onClick={toggleDropdown}>
           <MenuText>Home</MenuText>
           <MenuImage src="./icons/arrow-down.svg" alt="Arrow down" />
         </MenuExpanding>
-        {dropdownOpen && <ExpandedMenu name={"Tomasz Lesniak"} />}
+        {dropdownOpen && <ExpandedMenu name={loggedUser!.name} />}
       </Menu>
       <Search>
         <SearchInput type="text" placeholder="Search LegalCluster" />
         <img src="./icons/search.svg" alt="Loop" />
       </Search>
       <Icons>
-        <Icon src="./icons/house.svg" />
-        <Icon src="./icons/comments.svg" />
-        <Icon src="./icons/bell.svg" />
+        <Link to="/">
+          <Icon src="./icons/house.svg" />
+        </Link>
+        <Link to="/comments">
+          <Icon src="./icons/comments.svg" />
+        </Link>
+        <Link to="/notifications">
+          <Icon src="./icons/bell.svg" />
+        </Link>
       </Icons>
     </TopBarWrapper>
   );
