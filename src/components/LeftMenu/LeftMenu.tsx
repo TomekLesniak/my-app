@@ -33,7 +33,7 @@ export const LeftMenu: FC = observer(() => {
         <LeftMenuUserDetails
           name={loggedUser!.name}
           companyName={loggedUser!.company.name}
-          image={usersStore.photo?.url}
+          image={loggedUser!.photo}
         />
       </LeftMenuUsersWrapper>
       <LeftMenuLinks />

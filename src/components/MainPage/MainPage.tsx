@@ -10,11 +10,13 @@ import { Workspaces } from "./Workspaces";
 import { ResumeYourWork } from "./ResumeYourWork";
 import { useStore } from "../../reducers/storeContext";
 import { observer } from "mobx-react-lite";
+import { Profile } from "../Profile/Profile";
 
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
+  font-size: 1.2rem;
   background: ${Colors.backgroundColor};
 `;
 
@@ -62,6 +64,9 @@ const MainPage: FC = observer(() => {
             <Route path="/entities" exact>
               entities component
             </Route>
+            <Route path="/profile" exact>
+              <Profile />
+            </Route>
             <Route path="/" exact>
               <ContentWrapper>
                 <Slider />
@@ -72,6 +77,9 @@ const MainPage: FC = observer(() => {
               <ContentWrapper>
                 <ResumeYourWork />
               </ContentWrapper>
+            </Route>
+            <Route path="/">
+              <div>Nothing here</div>
             </Route>
           </Switch>
         </Content>

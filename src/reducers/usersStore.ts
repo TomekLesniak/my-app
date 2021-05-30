@@ -21,8 +21,9 @@ export class UsersStore {
             await fetch(`https://jsonplaceholder.typicode.com/photos/${id}`)
             .then((response) => response.json())
             .then(photo => {
-                runInAction(() => this.photo = photo);
+                runInAction(() => this.user!.photo = photo.url);
             } )
+
 
         } catch(error) {
             console.log(error)

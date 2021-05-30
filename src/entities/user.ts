@@ -31,4 +31,5 @@ export interface User {
     phone: string;
     website: string;
     company: Company;
+    photo: string;
 }

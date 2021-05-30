@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
@@ -59,10 +60,11 @@ const DetailsLinkWrapper = styled.div`
 
 const Icon = styled.img``;
 
-const DetailsText = styled.span`
+const DetailsText = styled(Link)`
   color: #154a9e;
   font-weight: 600;
   margin-left: 0.5rem;
+  text-decoration: none;
 `;
 
 const ImageButton = styled.button`
@@ -91,7 +93,7 @@ export const LeftMenuUserDetails: FC<Props> = ({
       <DetailsLink>
         <DetailsLinkWrapper>
           <Icon src="./icons/people.svg" />
-          <DetailsText>Your network</DetailsText>
+          <DetailsText to="/network">Your network</DetailsText>
         </DetailsLinkWrapper>
         <ImageButton>
           <Icon src="./icons/user-plus.svg" />
@@ -100,7 +102,7 @@ export const LeftMenuUserDetails: FC<Props> = ({
       <DetailsLink>
         <DetailsLinkWrapper>
           <Icon src="./icons/publications.svg" />
-          <DetailsText>Your publications</DetailsText>
+          <DetailsText to="/publications">Your publications</DetailsText>
         </DetailsLinkWrapper>
         <ImageButton>
           <Icon src="./icons/plus.svg" />

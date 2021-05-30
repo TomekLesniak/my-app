@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react";
 import { ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
@@ -45,10 +46,17 @@ const LinkIcon = styled.img`
   width: 1.5rem;
 `;
 
-const LinkText = styled.span`
+const LinkText = styled(Link)`
   color: ${Colors.primaryTextColor};
+
   display: inline-block;
   margin-top: 0.3rem;
+  margin-left: 0.5rem;
+  text-decoration: none;
+`;
+
+const UserText = styled.span`
+  display: inline-block;
   margin-left: 0.5rem;
 `;
 
@@ -74,7 +82,7 @@ const AccountSeeDetailsWrapper = styled.div`
 const SplitLine = styled.div`
   width: 100%;
   box-sizing: content-box;
-  border-bottom: 1px solid ${Colors.backgroundColor};
+  border-bottom: 1px solid ${Colors.bordersColor};
   padding: 0.1rem 0.3rem;
   margin: 0 1rem;
   margin-left: -0.3rem;
@@ -117,35 +125,35 @@ export const ExpandedMenu: FC<Props> = ({ image, name }: Props) => {
         {"home".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/house.svg" />
-            <LinkText>Home</LinkText>
+            <LinkText to="/">Home</LinkText>
           </GroupLink>
         )}
 
         {"publications".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/publications.svg" />
-            <LinkText>Publications</LinkText>
+            <LinkText to="/publications">Publications</LinkText>
           </GroupLink>
         )}
 
         {"people".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/people.svg" />
-            <LinkText>People</LinkText>
+            <LinkText to="/people">People</LinkText>
           </GroupLink>
         )}
 
         {"entities".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/entities.svg" />
-            <LinkText>Entities</LinkText>
+            <LinkText to="/entities">Entities</LinkText>
           </GroupLink>
         )}
 
         {"administration".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/administration.svg" />
-            <LinkText>Administration</LinkText>
+            <LinkText to="/administration">Administration</LinkText>
           </GroupLink>
         )}
         <GroupText>Workspaces</GroupText>
@@ -153,35 +161,37 @@ export const ExpandedMenu: FC<Props> = ({ image, name }: Props) => {
         {"client contract".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText>Client contract</LinkText>
+            <LinkText to="/client-contract">Client contract</LinkText>
           </GroupLink>
         )}
 
         {"supplier contract".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText>Supplier contract</LinkText>
+            <LinkText to="/supplier-contract">Supplier contract</LinkText>
           </GroupLink>
         )}
 
         {"corporate".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/entities.svg" />
-            <LinkText>Corporate</LinkText>
+            <LinkText to="/corporate">Corporate</LinkText>
           </GroupLink>
         )}
 
         {"group norms".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/entities.svg" />
-            <LinkText>Group Norms</LinkText>
+            <LinkText to="/group-norms">Group Norms</LinkText>
           </GroupLink>
         )}
 
         {"real estate contracts".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText>Real estate contracts</LinkText>
+            <LinkText to="real-estate-contracts">
+              Real estate contracts
+            </LinkText>
           </GroupLink>
         )}
       </LinksWrapper>
@@ -191,23 +201,23 @@ export const ExpandedMenu: FC<Props> = ({ image, name }: Props) => {
         <AccountDetailsWrapper>
           <AccountRoundedImage src={image ? image : "./icons/people.svg"} />
           <AccountSeeDetailsWrapper>
-            <p>{name}</p>
-            <p>See profile</p>
+            <UserText>{name}</UserText>
+            <LinkText to="/profile">See profile</LinkText>
           </AccountSeeDetailsWrapper>
         </AccountDetailsWrapper>
         <GroupLink>
           <LinkIcon src="./icons/privacy.svg" />
-          <LinkText>Privacy</LinkText>
+          <LinkText to="/privacy">Privacy</LinkText>
         </GroupLink>
         <GroupLink>
           <LinkIcon src="./icons/settings.svg" />
-          <LinkText>Settings</LinkText>
+          <LinkText to="/settings">Settings</LinkText>
         </GroupLink>
       </AccountSettings>
       <SplitLine />
       <LogoutWrapper>
         <LinkIcon src="./icons/logout.svg" />
-        <LinkText>Logout</LinkText>
+        <LinkText to="/logout">Logout</LinkText>
       </LogoutWrapper>
     </Wrapper>
   );
