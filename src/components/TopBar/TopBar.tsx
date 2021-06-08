@@ -13,6 +13,7 @@ import { ExpandedMenu } from "../ExpandedMenu/ExpandedMenu";
 const TopBarWrapper = styled.div`
   height: 3rem;
   margin: 0;
+  padding: 0 0.5rem;
   display: flex;
   background: ${Colors.primaryColor};
   align-items: center;

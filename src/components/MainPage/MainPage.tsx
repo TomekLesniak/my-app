@@ -34,7 +34,7 @@ const Content = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  margin: 1rem 0;
+  margin-bottom: 2rem;
 `;
 
 const MainPage: FC = observer(() => {

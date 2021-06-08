@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
 const Wrapper = styled.div`
-  height: 25vh;
+  min-height: 25vh;
   display: flex;
   border: 1px solid ${Colors.bordersColor};
   align-items: center;
