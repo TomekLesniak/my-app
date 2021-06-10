@@ -27,6 +27,7 @@ const Name = styled.span`
   display: inline-block;
   margin: 0.3rem;
   font-weight: 600;
+  letter-spacing: 1px;
 `;
 
 const Details = styled.span`
@@ -61,7 +62,7 @@ const DetailsLinkWrapper = styled.div`
 const Icon = styled.img``;
 
 const DetailsText = styled(Link)`
-  color: #154a9e;
+  color: ${Colors.primaryTextColor};
   font-weight: 600;
   margin-left: 0.5rem;
   text-decoration: none;

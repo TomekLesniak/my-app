@@ -8,6 +8,7 @@ import { boxShadow } from "../../styledHelpers/boxShadow";
 import { sizes } from "../../styledHelpers/breakpoints";
 import { Colors } from "../../styledHelpers/Colors";
 import { fontSize } from "../../styledHelpers/FontSizes";
+import { PrimaryTextBold } from "../../styledHelpers/textHelpers";
 import { ExpandedMenu } from "../ExpandedMenu/ExpandedMenu";
 
 const TopBarWrapper = styled.div`
@@ -97,7 +98,7 @@ const TopBar: FC = () => {
       <Menu ref={wrapperRef}>
         <Icon src="./icons/house.svg" alt="House" />
         <MenuExpanding onClick={toggleDropdown}>
-          <MenuText>Home</MenuText>
+          <PrimaryTextBold>Home</PrimaryTextBold>
           <MenuImage src="./icons/arrow-down.svg" alt="Arrow down" />
         </MenuExpanding>
         {dropdownOpen && <ExpandedMenu name={loggedUser!.name} />}

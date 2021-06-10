@@ -1,10 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
+import { User } from "../../entities/user";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
   PrimaryTextBold,
   SecondaryText,
+  SecondaryTextBold,
 } from "../../styledHelpers/textHelpers";
 
 const Wrapper = styled.div`
@@ -18,13 +20,60 @@ const Wrapper = styled.div`
   margin: 0.2rem;
 
   span {
-    margin: 0.1rem 0;
+    margin: 0.3rem 0;
   }
 `;
 
-interface Props {}
+const DetailsWrapper = styled.div`
+  display: flex;
+  font-size: 0.7em;
+  margin: 0.2rem;
 
-export const ResumeYourWorkCard: FC<Props> = () => {
+  div {
+    margin-right: 0 2rem;
+  }
+`;
+
+const Dot = styled.span`
+  margin: 0 1rem !important;
+  margin-top: 0.2rem !important;
+`;
+
+const DetailWrapper = styled.div`
+  display: flex;
+
+  * {
+    margin: 0 0.3rem;
+  }
+
+  span {
+    margin-top: 0.5rem;
+    padding: 0.1rem;
+  }
+`;
+
+interface Props {
+  user: User;
+}
+
+export const ResumeYourWorkCard: FC<Props> = ({ user }: Props) => {
+  const categoryId: number = user.id % 3;
+  const [category, setCategory] = useState("");
+
+  useEffect(() => {
+    switch (categoryId) {
+      case 0:
+        setCategory("Corporate");
+        break;
+      case 1:
+        setCategory("Supplier contract");
+        break;
+      case 2:
+        setCategory("Client Contract");
+        break;
+    }
+  }, [category, categoryId]);
+
   return (
     <Wrapper>
       <PrimaryTextBold>World Company SAS</PrimaryTextBold>
@@ -34,6 +83,21 @@ export const ResumeYourWorkCard: FC<Props> = () => {
         facere voluptas suscipit excepturi quaerat magni, quasi ipsa atque
         voluptatibus asperiores?
       </SecondaryText>
+      <DetailsWrapper>
+        <DetailWrapper>
+          <img src="./icons/house.svg " />
+          <SecondaryTextBold>Subsid. corp.</SecondaryTextBold>
+        </DetailWrapper>
+        <Dot>.</Dot>
+        <DetailWrapper>
+          <img src="./icons/entities.svg " />
+          <SecondaryTextBold>{category}</SecondaryTextBold>
+        </DetailWrapper>
+        <Dot>.</Dot>
+        <DetailWrapper>
+          <SecondaryText>Updated 3 days ago by User</SecondaryText>
+        </DetailWrapper>
+      </DetailsWrapper>
     </Wrapper>
   );
 };

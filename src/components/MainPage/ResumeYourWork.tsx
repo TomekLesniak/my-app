@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
@@ -33,6 +34,7 @@ const Filter = styled.div`
   display: flex;
   align-self: center;
   margin: 0 2rem;
+  cursor: pointer;
 
   img {
     margin: 0 0.3rem;
@@ -40,6 +42,11 @@ const Filter = styled.div`
 `;
 
 export const ResumeYourWork: FC = () => {
+  const { usersStore } = useStore();
+  const user = usersStore.user;
+
+  if (!user) return <div>error</div>;
+
   return (
     <Wrapper>
       <HeadWrapper>
@@ -55,8 +62,8 @@ export const ResumeYourWork: FC = () => {
           </Filter>
         </FiltersWrapper>
       </HeadWrapper>
-      <ResumeYourWorkCard />
-      <ResumeYourWorkCard />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
     </Wrapper>
   );
 };
