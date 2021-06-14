@@ -1,16 +1,17 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 
 import TopBar from "../TopBar/TopBar";
 import { LeftMenu } from "../LeftMenu/LeftMenu";
 import { Colors } from "../../styledHelpers/Colors";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { Slider } from "./Slider";
 import { Workspaces } from "./Workspaces";
 import { ResumeYourWork } from "./ResumeYourWork";
 import { useStore } from "../../reducers/storeContext";
 import { observer } from "mobx-react-lite";
 import { Profile } from "../Profile/Profile";
+import { CommonStore } from "../../reducers/commonStore";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,16 +30,17 @@ const InnerWrapper = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   margin: 0 2rem;
+  overflow: hidden;
 `;
 
 const ContentWrapper = styled.div`
   margin-bottom: 2rem;
+  width: 100%;
 `;
 
 const MainPage: FC = observer(() => {
-  const { usersStore } = useStore();
+  const { usersStore, commonStore } = useStore();
 
   useEffect(() => {
     usersStore.loadUser(1);

@@ -95,7 +95,7 @@ export const ResumeYourWorkCard: FC<Props> = ({ user }: Props) => {
         </DetailWrapper>
         <Dot>.</Dot>
         <DetailWrapper>
-          <SecondaryText>Updated 3 days ago by User</SecondaryText>
+          <SecondaryText>Updated 3 days ago by {user.name}</SecondaryText>
         </DetailWrapper>
       </DetailsWrapper>
     </Wrapper>

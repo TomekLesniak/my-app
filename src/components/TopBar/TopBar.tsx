@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import useDropdown from "react-dropdown-hook";
 import { Link } from "react-router-dom";
@@ -86,10 +87,10 @@ const Icons = styled.div`
 
 const Icon = styled.img``;
 
-const TopBar: FC = () => {
+const TopBar: FC = observer(() => {
   const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
 
-  const { usersStore } = useStore();
+  const { usersStore, commonStore } = useStore();
   const loggedUser = usersStore.user;
 
   return (
@@ -98,7 +99,7 @@ const TopBar: FC = () => {
       <Menu ref={wrapperRef}>
         <Icon src="./icons/house.svg" alt="House" />
         <MenuExpanding onClick={toggleDropdown}>
-          <PrimaryTextBold>Home</PrimaryTextBold>
+          <PrimaryTextBold>{commonStore.currentComponentName}</PrimaryTextBold>
           <MenuImage src="./icons/arrow-down.svg" alt="Arrow down" />
         </MenuExpanding>
         {dropdownOpen && <ExpandedMenu name={loggedUser!.name} />}
@@ -120,6 +121,6 @@ const TopBar: FC = () => {
       </Icons>
     </TopBarWrapper>
   );
-};
+});
 
 export default TopBar;

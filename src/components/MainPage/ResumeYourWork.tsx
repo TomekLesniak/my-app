@@ -64,6 +64,13 @@ export const ResumeYourWork: FC = () => {
       </HeadWrapper>
       <ResumeYourWorkCard user={user} />
       <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
+      <ResumeYourWorkCard user={user} />
     </Wrapper>
   );
 };

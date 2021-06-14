@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
@@ -31,8 +31,12 @@ const SplitLine = styled.div`
 `;
 
 export const Profile: FC = observer(() => {
-  const { usersStore } = useStore();
+  const { usersStore, commonStore } = useStore();
   const user = usersStore.user;
+
+  useEffect(() => {
+    commonStore.setCurrentComponentName("Profile");
+  }, [commonStore]);
 
   if (!user) return <div>No user found</div>; //TODO: error page?
 
