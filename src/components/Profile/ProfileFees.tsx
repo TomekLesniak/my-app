@@ -8,7 +8,11 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const ProfileFees: FC = () => {
+interface Props {
+  isEditing: boolean;
+}
+
+export const ProfileFees: FC<Props> = ({ isEditing }: Props) => {
   const headers = ["Year", "Cost center", "Total amount", "Law firm"];
   const records = [
     ["2019", "CS 153", "3 500 $", "Clifford chance"],
@@ -21,7 +25,7 @@ export const ProfileFees: FC = () => {
   return (
     <Wrapper>
       <ProfileTextBoldHeader>Amount of fees</ProfileTextBoldHeader>
-      <ProfileTable headers={headers} records={records} />
+      <ProfileTable isEditing={isEditing} headers={headers} records={records} />
     </Wrapper>
   );
 };

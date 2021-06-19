@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 import {
@@ -22,6 +22,7 @@ const Table = styled.table`
   td,
   th {
     padding: 0.5rem;
+    flex: 1 1 auto;
   }
 
   th {
@@ -29,28 +30,62 @@ const Table = styled.table`
   }
 `;
 
+const MyInput = styled.input`
+  width: 100%;
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  padding: 0.2rem;
+  border-radius: 5px;
+  border: 1px solid ${Colors.bordersColor};
+  color: ${Colors.primaryTextColor};
+  font-weight: bold;
+`;
+
 interface Props {
   headers: string[];
   records: string[][];
+  isEditing: boolean;
 }
 
-export const ProfileTable: FC<Props> = ({ headers, records }: Props) => {
+export const ProfileTable: FC<Props> = ({
+  headers,
+  records,
+  isEditing,
+}: Props) => {
+  const [recordsState, setRecordsState] = useState(records);
   return (
     <Wrapper>
       <Table>
         <thead>
           <tr>
-            {headers.map((h) => (
-              <th key={h}>{h}</th>
+            {headers.map((h, i) => (
+              <th key={`${h}${i}`}>{h}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {records.map((row, i) => (
+          {recordsState.map((row, i) => (
             <tr key={`${row}${i}`}>
-              {row.map((content) => (
-                <td>{content}</td>
-              ))}
+              {!isEditing &&
+                row.map((content, j) => (
+                  <td key={`${content}${j}`}>{content}</td>
+                ))}
+              {isEditing &&
+                row.map((content, j) => (
+                  <td key={`${i}${j}`}>
+                    <MyInput
+                      defaultValue={content}
+                      onChange={(ev) => {
+                        let updated = recordsState[i][j];
+                        updated = ev.target.value;
+                        recordsState[i][j] = updated;
+                        setRecordsState(recordsState);
+                      }}
+                    />
+                  </td>
+                ))}
             </tr>
           ))}
         </tbody>

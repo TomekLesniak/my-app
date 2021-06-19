@@ -15,7 +15,11 @@ const Wrapper = styled.div`
   }
 `;
 
-export const ProfileReviews: FC = () => {
+interface Props {
+  isEditing: boolean;
+}
+
+export const ProfileReviews: FC<Props> = ({ isEditing }: Props) => {
   const headers = ["Name", "Entity", "Location", "Expertise", "Date"];
   const records = [
     ["Opeartion Time", "Renault Company", "France", "#Tax", "20/01/2018"],
@@ -26,7 +30,7 @@ export const ProfileReviews: FC = () => {
   return (
     <Wrapper>
       <ProfileTextBoldHeader>Internal reviews</ProfileTextBoldHeader>
-      <ProfileTable headers={headers} records={records} />
+      <ProfileTable isEditing={isEditing} headers={headers} records={records} />
       <ProfileTextBold>See more reviews</ProfileTextBold>
     </Wrapper>
   );

@@ -29,4 +29,30 @@ export class UsersStore {
             console.log(error)
         }
     }
+
+    setUserName = (newValue: string) => {
+        this.user!.name = newValue;
+    }
+
+    setCompanyName = (newValue: string) => {
+        this.user!.company.name = newValue;
+    }
+
+    setAddressCity = (newValue: string) => {
+        this.user!.address.city = newValue;
+    }
+
+    setCompanyBs = (newValue: string) => {
+        this.user!.company.bs = newValue;
+    }
+
+    setUserEmail = (newValue: string) => {
+        this.user!.email = newValue;
+    }
+
+    setUserPhone = (newValue: string) => {
+        this.user!.phone = newValue;
+    }
+
+
 }

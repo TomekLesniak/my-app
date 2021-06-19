@@ -1,7 +1,9 @@
 import { observer } from "mobx-react-lite";
-import React, { FC, useState } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import styled from "styled-components";
+import { isEmptyBindingPattern } from "typescript";
 import { User } from "../../entities/user";
+import { useStore } from "../../reducers/storeContext";
 import { Colors } from "../../styledHelpers/Colors";
 import {
   ProfileText,
@@ -73,13 +75,35 @@ const ProfileTextSecondary = styled(ProfileText)`
   color: ${Colors.lightBlueTextColor};
 `;
 
+const EditIcon = styled.img`
+  cursor: pointer;
+`;
+
+const MyForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  input {
+    display: inline-block;
+    margin-top: 0.2rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    padding: 0.2rem;
+    border-radius: 5px;
+    border: 1px solid ${Colors.bordersColor};
+    color: ${Colors.primaryTextColor};
+    font-weight: bold;
+  }
+`;
+
 interface Props {
   user: User;
 }
 
 export const ProfileAbout: FC<Props> = observer(({ user }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
-
+  const { usersStore } = useStore();
 
   return (
     <Wrapper>
@@ -93,7 +117,7 @@ export const ProfileAbout: FC<Props> = observer(({ user }: Props) => {
           iconSrc={"./icons/user-plus.svg"}
           message={"Add to cluster"}
         />
-        X
+        <span>X</span>
       </ActionsWrapper>
       <DetailsWrapper>
         <ImageWrapper>
@@ -101,16 +125,62 @@ export const ProfileAbout: FC<Props> = observer(({ user }: Props) => {
           <ProfileTextSecondary>See Profile</ProfileTextSecondary>
         </ImageWrapper>
         <ProfileInfoWrapper>
-          <ProfileTextBold>{user.name}</ProfileTextBold>
-          <ProfileTextBold>{user.company.name}</ProfileTextBold>
-          <ProfileText>{user.address.city}</ProfileText>
-          <ProfileText>{user.company.bs}</ProfileText>
+          {!isEditing && (
+            <>
+              <ProfileTextBold>{user.name}</ProfileTextBold>
+              <ProfileTextBold>{user.company.name}</ProfileTextBold>
+              <ProfileText>{user.address.city}</ProfileText>
+              <ProfileText>{user.company.bs}</ProfileText>
+            </>
+          )}
+          {isEditing && (
+            <MyForm>
+              <input
+                defaultValue={user.name}
+                onChange={(ev) => usersStore.setUserName(ev.target.value)}
+              />
+              <input
+                defaultValue={user.company.name}
+                onChange={(ev) => usersStore.setCompanyName(ev.target.value)}
+              />
+              <input
+                defaultValue={user.address.city}
+                onChange={(ev) => usersStore.setAddressCity(ev.target.value)}
+              />
+              <input
+                defaultValue={user.company.bs}
+                onChange={(ev) => usersStore.setCompanyBs(ev.target.value)}
+              />
+            </MyForm>
+          )}
         </ProfileInfoWrapper>
         <AdditionalInfoWrapper>
-          <img src="./icons/settings.svg" alt="edit" />
+          <EditIcon
+            src="./icons/settings.svg"
+            alt="edit"
+            onClick={() => {
+              setIsEditing(!isEditing);
+            }}
+          />
           <AdditionalInfoTextsWrapper>
-            <ProfileText>{user.email}</ProfileText>
-            <ProfileText>{user.phone}</ProfileText>
+            {!isEditing && (
+              <>
+                <ProfileText>{user.email}</ProfileText>
+                <ProfileText>{user.phone}</ProfileText>
+              </>
+            )}
+            {isEditing && (
+              <MyForm>
+                <input
+                  defaultValue={user.email}
+                  onChange={(ev) => usersStore.setUserEmail(ev.target.value)}
+                />
+                <input
+                  defaultValue={user.phone}
+                  onChange={(ev) => usersStore.setUserPhone(ev.target.value)}
+                />
+              </MyForm>
+            )}
           </AdditionalInfoTextsWrapper>
         </AdditionalInfoWrapper>
       </DetailsWrapper>

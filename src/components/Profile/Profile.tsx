@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
@@ -34,8 +34,28 @@ export const Profile: FC = observer(() => {
   const { usersStore, commonStore } = useStore();
   const user = usersStore.user;
 
+  const [isEditing, setIsEditing] = useState(false);
+
+  const toggleIsEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleKeyPressed = (ev: KeyboardEvent) => {
+    const ESC_KEY = "Escape";
+
+    if (ev.key === ESC_KEY) {
+      setIsEditing(false);
+    }
+  };
+
   useEffect(() => {
     commonStore.setCurrentComponentName("Profile");
+
+    window.addEventListener("keydown", (ev) => handleKeyPressed(ev));
+
+    return () => {
+      window.removeEventListener("keydown", (ev) => handleKeyPressed(ev));
+    };
   }, [commonStore]);
 
   if (!user) return <div>No user found</div>; //TODO: error page?
@@ -44,15 +64,18 @@ export const Profile: FC = observer(() => {
     <Wrapper>
       <ProfileAbout user={user} />
       <SplitLine />
-      <ProfileTags />
+      <ProfileTags
+        isEditing={isEditing}
+        setIsEditingCallback={toggleIsEditing}
+      />
       <SplitLine />
-      <ProfilePanelInformation user={user} />
+      <ProfilePanelInformation isEditing={isEditing} user={user} />
       <SplitLine />
-      <ProfilePropsals />
+      <ProfilePropsals isEditing={isEditing} />
       <SplitLine />
-      <ProfileReviews />
+      <ProfileReviews isEditing={isEditing} />
       <SplitLine />
-      <ProfileFees />
+      <ProfileFees isEditing={isEditing} />
     </Wrapper>
   );
 });

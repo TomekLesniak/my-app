@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { User } from "../../entities/user";
 import { Colors } from "../../styledHelpers/Colors";
@@ -10,6 +10,7 @@ import {
   ProfileTextBoldHeader,
 } from "../../styledHelpers/profileHelpers";
 import { ProfileAction } from "./ProfileAction";
+import { ProfileInput } from "./ProfileInput";
 
 const Wrapper = styled.div`
   letter-spacing: 1px;
@@ -57,10 +58,18 @@ const CorrespondantWrapper = styled(AttachementWrapper)`
 
 interface Props {
   user: User;
+  isEditing: boolean;
 }
 
 export const ProfilePanelInformation: FC<Props> = observer(
-  ({ user }: Props) => {
+  ({ user, isEditing }: Props) => {
+    const [hourlyFee, setHourlyFee] = useState("610$/hour (Negociated)");
+    const [terms, setTerms] = useState(
+      "Monthly 10k$ retainer - see with Jeanny Smith"
+    );
+    const [services, setServices] = useState(
+      " Corporate M&A and international acquisitions"
+    );
     return (
       <Wrapper>
         <Row>
@@ -69,13 +78,27 @@ export const ProfilePanelInformation: FC<Props> = observer(
 
         <Row>
           <ProfileGrayedTextHeader>Hourly Fee</ProfileGrayedTextHeader>
-          <ProfileText>610$/hour (Negociated)</ProfileText>
+          <ProfileText>
+            {!isEditing && hourlyFee}
+            {isEditing && (
+              <ProfileInput
+                initValue={hourlyFee}
+                callback={(ev) => setHourlyFee(ev.target.value)}
+              />
+            )}
+          </ProfileText>
         </Row>
 
         <Row>
           <ProfileGrayedTextHeader>Terms & conditions</ProfileGrayedTextHeader>
           <ProfileText>
-            Monthly 10k$ retainer - see with Jeanny Smith
+            {!isEditing && terms}
+            {isEditing && (
+              <ProfileInput
+                initValue={terms}
+                callback={(ev) => setTerms(ev.target.value)}
+              />
+            )}
           </ProfileText>
           <AttachementWrapper>
             <img src="./icons/logout.svg" alt="Attachement" />
@@ -86,7 +109,13 @@ export const ProfilePanelInformation: FC<Props> = observer(
         <Row>
           <ProfileTextBoldHeader>Services & projects</ProfileTextBoldHeader>
           <ProfileText>
-            Corporate M&A and international acquisitions
+            {!isEditing && services}
+            {isEditing && (
+              <ProfileInput
+                initValue={services}
+                callback={(ev) => setServices(ev.target.value)}
+              />
+            )}
           </ProfileText>
         </Row>
 

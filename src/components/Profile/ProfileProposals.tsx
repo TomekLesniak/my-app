@@ -17,7 +17,11 @@ const SeeMoreText = styled.span`
   letter-spacing: 1px;
 `;
 
-export const ProfilePropsals: FC = () => {
+interface Props {
+  isEditing: boolean;
+}
+
+export const ProfilePropsals: FC<Props> = ({ isEditing }: Props) => {
   const headers = ["Name", "Entity", "Location", "Expertise", "Date", "Firm"];
   const records = [
     [
@@ -49,7 +53,11 @@ export const ProfilePropsals: FC = () => {
   return (
     <Wrapper>
       <ProfileTextBoldHeader>Proposals</ProfileTextBoldHeader>
-      <ProfileTable headers={headers} records={records}></ProfileTable>
+      <ProfileTable
+        isEditing={isEditing}
+        headers={headers}
+        records={records}
+      ></ProfileTable>
       <SeeMoreText>See more proposals</SeeMoreText>
     </Wrapper>
   );
