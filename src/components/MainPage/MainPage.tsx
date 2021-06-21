@@ -12,6 +12,8 @@ import { useStore } from "../../reducers/storeContext";
 import { observer } from "mobx-react-lite";
 import { Profile } from "../Profile/Profile";
 import { CommonStore } from "../../reducers/commonStore";
+import { ErrorPage } from "./ErrorPage";
+import { Entities } from "../Entities/Entities";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -32,6 +34,7 @@ const Content = styled.div`
   flex-direction: column;
   margin: 0 2rem;
   overflow: hidden;
+  width: 100%;
 `;
 
 const ContentWrapper = styled.div`
@@ -64,7 +67,7 @@ const MainPage: FC = observer(() => {
               ecosystem Component
             </Route>
             <Route path="/entities" exact>
-              entities component
+              <Entities />
             </Route>
             <Route path="/profile" exact>
               <Profile />
@@ -81,7 +84,9 @@ const MainPage: FC = observer(() => {
               </ContentWrapper>
             </Route>
             <Route path="/">
-              <div>Nothing here</div>
+              <ContentWrapper>
+                <ErrorPage />
+              </ContentWrapper>
             </Route>
           </Switch>
         </Content>
