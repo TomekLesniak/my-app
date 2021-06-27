@@ -1,19 +1,19 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 
 import TopBar from "../TopBar/TopBar";
 import { LeftMenu } from "../LeftMenu/LeftMenu";
 import { Colors } from "../../styledHelpers/Colors";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Slider } from "./Slider";
 import { Workspaces } from "./Workspaces";
 import { ResumeYourWork } from "./ResumeYourWork";
 import { useStore } from "../../reducers/storeContext";
 import { observer } from "mobx-react-lite";
 import { Profile } from "../Profile/Profile";
-import { CommonStore } from "../../reducers/commonStore";
 import { ErrorPage } from "./ErrorPage";
 import { Entities } from "../Entities/Entities";
+import { Workspace } from "../Workspace/Workspace";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -43,11 +43,12 @@ const ContentWrapper = styled.div`
 `;
 
 const MainPage: FC = observer(() => {
-  const { usersStore, commonStore } = useStore();
+  const { usersStore, commentsStore } = useStore();
 
   useEffect(() => {
-    usersStore.loadUser(1);
-  }, [usersStore]);
+    usersStore.loadUsers();
+    commentsStore.loadComments();
+  }, [usersStore, commentsStore]);
 
   if (!usersStore.user) {
     return <div>Loading</div>;
@@ -60,8 +61,8 @@ const MainPage: FC = observer(() => {
         <LeftMenu />
         <Content>
           <Switch>
-            <Route path="/publications" exact>
-              Publications Component
+            <Route path="/workspace" exact>
+              <Workspace />
             </Route>
             <Route path="/ecosystem" exact>
               ecosystem Component

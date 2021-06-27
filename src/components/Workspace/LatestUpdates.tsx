@@ -11,7 +11,7 @@ import {
   SecondaryTextHeader,
 } from "../../styledHelpers/textHelpers";
 import { SearchInput, ButtonSize } from "../common/SearchInput";
-import { ResumeYourWorkCard } from "./ResumeYourWorkCard";
+import { LatestUpdatesCard } from "./LatestUpdatesCard";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -86,7 +86,7 @@ const StyledPaginateContainer = styled.div`
   }
 `;
 
-export interface UserComment {
+interface UpdateComment {
   userId: number;
   userName: string;
   postId: number;
@@ -94,14 +94,14 @@ export interface UserComment {
   body: string;
 }
 
-export const ResumeYourWork: FC = () => {
+export const LatestUpdates: FC = () => {
   const { usersStore, commentsStore } = useStore();
   const user = usersStore.user;
   const { allUsers } = usersStore;
   const { comments } = commentsStore;
 
   const [commentsSorted, setCommentsSorted] = useState<
-    UserComment[] | undefined
+    UpdateComment[] | undefined
   >();
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [mineFilter, setMineFilter] = useState(true);
@@ -125,9 +125,9 @@ export const ResumeYourWork: FC = () => {
           userId: user?.id,
           userName: user?.name,
           postId: c.id,
-          title: c.name,
+          title: user?.company.name,
           body: c.body,
-        } as UserComment;
+        } as UpdateComment;
       })
       .filter((x) => (mineFilter ? true : (x.postId % 10) + 1 === 1))
       .slice(currentPage, currentPage + 10);
@@ -140,7 +140,7 @@ export const ResumeYourWork: FC = () => {
   return (
     <Wrapper>
       <HeadWrapper>
-        <SecondaryTextHeader>Resume your work</SecondaryTextHeader>
+        <SecondaryTextHeader>Latest updates</SecondaryTextHeader>
         <FiltersWrapper>
           <SearchInput
             onChangeHandler={inputHandler}
@@ -163,7 +163,7 @@ export const ResumeYourWork: FC = () => {
       </HeadWrapper>
       {commentsSorted.map((comment, i) => {
         return comment.title.toLowerCase().includes(inputText.toLowerCase()) ? (
-          <ResumeYourWorkCard userComment={comment} />
+          <LatestUpdatesCard userComment={comment} />
         ) : (
           <></>
         );

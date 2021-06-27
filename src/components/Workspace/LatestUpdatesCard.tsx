@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { User } from "../../entities/user";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
@@ -8,7 +7,7 @@ import {
   SecondaryText,
   SecondaryTextBold,
 } from "../../styledHelpers/textHelpers";
-import { UserComment } from "./ResumeYourWork";
+import { UserComment } from "../MainPage/ResumeYourWork";
 
 const Wrapper = styled.div`
   display: flex;
@@ -57,37 +56,15 @@ interface Props {
   userComment: UserComment;
 }
 
-export const ResumeYourWorkCard: FC<Props> = ({ userComment }: Props) => {
-  const categoryId: number = userComment?.userId % 3;
-  const [category, setCategory] = useState("");
-
-  useEffect(() => {
-    switch (categoryId) {
-      case 0:
-        setCategory("Corporate");
-        break;
-      case 1:
-        setCategory("Supplier contract");
-        break;
-      case 2:
-        setCategory("Client Contract");
-        break;
-    }
-  }, [category, categoryId]);
-
+export const LatestUpdatesCard: FC<Props> = ({ userComment }: Props) => {
   return (
     <Wrapper>
       <PrimaryTextBold>{userComment.title}</PrimaryTextBold>
       <SecondaryText>{userComment.body}</SecondaryText>
       <DetailsWrapper>
         <DetailWrapper>
-          <img src="./icons/house.svg " />
-          <SecondaryTextBold>Subsid. corp.</SecondaryTextBold>
-        </DetailWrapper>
-        <Dot>.</Dot>
-        <DetailWrapper>
           <img src="./icons/entities.svg " />
-          <SecondaryTextBold>{category}</SecondaryTextBold>
+          <SecondaryTextBold>SAS</SecondaryTextBold>
         </DetailWrapper>
         <Dot>.</Dot>
         <DetailWrapper>

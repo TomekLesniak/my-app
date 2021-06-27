@@ -4,7 +4,9 @@ import { Photo, User } from "../entities/user";
 
 export class UsersStore {
     user: User | null = null;
-    photo: Photo | null = null;
+    private photo: Photo | null = null;
+    allUsers: User[] | null = null;
+    private allUsersImages: Photo[] | null = null;
     
     constructor(){
         makeAutoObservable(this);
@@ -24,6 +26,34 @@ export class UsersStore {
                 runInAction(() => this.user!.photo = photo.url);
             } )
 
+
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    loadUsers = async () => {
+        try {
+            await fetch(`https://jsonplaceholder.typicode.com/users/?_limit=10`)
+            .then((response) => response.json())
+            .then(users => {
+                runInAction(() => this.allUsers = users)
+            console.log(this.allUsers);
+
+            });
+
+
+            await fetch(`https://jsonplaceholder.typicode.com/photos/?_limit=10`)
+            .then((response) => response.json())
+            .then(photos => {
+                runInAction(() => this.allUsers!.forEach((u, i) => 
+                    u.photo = photos[i].url
+                ));
+            } )
+
+            runInAction(() => {
+                this.user = this.allUsers![0];
+            })
 
         } catch(error) {
             console.log(error)

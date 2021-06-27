@@ -6,8 +6,6 @@ import {
   PrimaryText,
   PrimaryTextBold,
   PrimaryTextHeader,
-  SecondaryTextBold,
-  SecondaryTextHeader,
 } from "../../styledHelpers/textHelpers";
 import { ButtonSize, SearchInput } from "../common/SearchInput";
 import { EntityListItem } from "./EntityListItem";
@@ -135,6 +133,12 @@ export const Entities: FC = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [fullScreenMode, setFullScreenMode] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+
+  const handleLinkCopy = () => {
+    setLinkCopied(true);
+    navigator.clipboard.writeText("localhost:3000/entities");
+  };
 
   const { commonStore } = useStore();
 
@@ -189,8 +193,8 @@ export const Entities: FC = () => {
           <FilterWrapper onClick={() => setFullScreenMode(true)}>
             <PrimaryText>[ &#8599; ]</PrimaryText>
           </FilterWrapper>
-          <FilterWrapper>
-            <PrimaryText>&#20803; Share</PrimaryText>
+          <FilterWrapper onClick={() => handleLinkCopy()}>
+            <PrimaryText>&#20803; {linkCopied ? "Copied" : "Copy"}</PrimaryText>
           </FilterWrapper>
         </Row>
         <Row>

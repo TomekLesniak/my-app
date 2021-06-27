@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC } from "react";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
@@ -40,13 +40,23 @@ interface WrapperProps {
 interface Props {
   size: ButtonSize;
   placeholder: string;
-  onChangeHandler?: () => void;
+  value?: string;
+  onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const SearchInput: FC<Props> = ({ size, placeholder }: Props) => {
+export const SearchInput: FC<Props> = ({
+  size,
+  placeholder,
+  value,
+  onChangeHandler,
+}: Props) => {
   return (
     <Wrapper size={size}>
-      <CustomInput placeholder={placeholder}></CustomInput>
+      <CustomInput
+        placeholder={placeholder}
+        defaultValue={value}
+        onChange={onChangeHandler}
+      ></CustomInput>
       <InputIcon src={"./icons/search.svg"} />
     </Wrapper>
   );

@@ -161,7 +161,7 @@ export const ExpandedMenu: FC<Props> = ({ image, name }: Props) => {
         {"client contract".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText to="/client-contract">Client contract</LinkText>
+            <LinkText to="/workspace">Client contract</LinkText>
           </GroupLink>
         )}
 
