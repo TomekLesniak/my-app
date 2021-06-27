@@ -1,5 +1,4 @@
-import { makeAutoObservable, runInAction, toJS } from "mobx";
-import { useContext } from "react";
+import { makeAutoObservable, runInAction} from "mobx";
 import { Photo, User } from "../entities/user";
 
 export class UsersStore {
@@ -38,7 +37,6 @@ export class UsersStore {
             .then((response) => response.json())
             .then(users => {
                 runInAction(() => this.allUsers = users)
-            console.log(this.allUsers);
 
             });
 

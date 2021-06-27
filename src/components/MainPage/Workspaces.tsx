@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { Colors } from "../../styledHelpers/Colors";
 import { SecondaryTextHeader } from "../../styledHelpers/textHelpers";
 import { WorkspaceItem } from "./WorkspaceItem";
 

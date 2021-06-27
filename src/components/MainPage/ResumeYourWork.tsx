@@ -6,8 +6,6 @@ import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
   PrimaryTextBold,
-  PrimaryTextHeader,
-  SecondaryText,
   SecondaryTextHeader,
 } from "../../styledHelpers/textHelpers";
 import { SearchInput, ButtonSize } from "../common/SearchInput";
@@ -157,13 +155,13 @@ export const ResumeYourWork: FC = () => {
             <PrimaryTextBold>
               {mineFilter ? "Following" : "Mine"}
             </PrimaryTextBold>
-            <img src="./icons/arrow-down.svg" />
+            <img src="./icons/arrow-down.svg" alt="arrow down" />
           </Filter>
         </FiltersWrapper>
       </HeadWrapper>
       {commentsSorted.map((comment, i) => {
         return comment.title.toLowerCase().includes(inputText.toLowerCase()) ? (
-          <ResumeYourWorkCard userComment={comment} />
+          <ResumeYourWorkCard key={i} userComment={comment} />
         ) : (
           <></>
         );

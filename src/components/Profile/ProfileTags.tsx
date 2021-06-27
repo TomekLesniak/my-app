@@ -106,7 +106,8 @@ export const ProfileTags: FC<Props> = ({
       </TagsRow>
       <ProfileGrayedText>Admission to practice law</ProfileGrayedText>
       <TagsRow>
-        {!isEditing && admissions.map((ad) => <TagWrapper>{ad}</TagWrapper>)}
+        {!isEditing &&
+          admissions.map((ad, i) => <TagWrapper key={i}>{ad}</TagWrapper>)}
         {isEditing &&
           admissions.map((ad, i) => (
             <ProfileInput
@@ -121,7 +122,8 @@ export const ProfileTags: FC<Props> = ({
       </TagsRow>
       <ProfileGrayedText>Counties</ProfileGrayedText>
       <TagsRow>
-        {!isEditing && counties.map((co) => <TagWrapper>{co}</TagWrapper>)}
+        {!isEditing &&
+          counties.map((co, i) => <TagWrapper key={i}>{co}</TagWrapper>)}
         {isEditing &&
           counties.map((co, i) => (
             <ProfileInput

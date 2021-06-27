@@ -20,6 +20,7 @@ export interface Company {
 export interface Photo {
     id: number;
     url: string;
+    title: string;
 }
 
 export interface User {

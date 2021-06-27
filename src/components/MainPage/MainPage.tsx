@@ -43,12 +43,15 @@ const ContentWrapper = styled.div`
 `;
 
 const MainPage: FC = observer(() => {
-  const { usersStore, commentsStore } = useStore();
+  const { usersStore, commentsStore, photosStore, latestPublicationsStore } =
+    useStore();
 
   useEffect(() => {
     usersStore.loadUsers();
     commentsStore.loadComments();
-  }, [usersStore, commentsStore]);
+    photosStore.loadPhotos();
+    latestPublicationsStore.loadPublications();
+  }, [usersStore, commentsStore, photosStore, latestPublicationsStore]);
 
   if (!usersStore.user) {
     return <div>Loading</div>;

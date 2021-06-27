@@ -14,5 +14,5 @@ const Wrapper = styled.div`
 `;
 
 export const ErrorPage: FC = () => {
-  return <Wrapper>test</Wrapper>;
+  return <Wrapper>ERROR PAGE - NO COMPONENT WAS MEANT TO BE MADE HERE.</Wrapper>;
 };

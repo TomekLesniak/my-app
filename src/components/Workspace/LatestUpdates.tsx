@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import styled from "styled-components";
 import { useStore } from "../../reducers/storeContext";
@@ -6,11 +6,10 @@ import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
   PrimaryTextBold,
-  PrimaryTextHeader,
-  SecondaryText,
   SecondaryTextHeader,
 } from "../../styledHelpers/textHelpers";
 import { SearchInput, ButtonSize } from "../common/SearchInput";
+import { FilterBlock } from "./FilterBlock";
 import { LatestUpdatesCard } from "./LatestUpdatesCard";
 
 const Wrapper = styled.div`
@@ -86,6 +85,11 @@ const StyledPaginateContainer = styled.div`
   }
 `;
 
+const BlocksWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 interface UpdateComment {
   userId: number;
   userName: string;
@@ -157,15 +161,41 @@ export const LatestUpdates: FC = () => {
             <PrimaryTextBold>
               {mineFilter ? "Following" : "Mine"}
             </PrimaryTextBold>
-            <img src="./icons/arrow-down.svg" />
+            <img src="./icons/arrow-down.svg" alt="arrow down" />
           </Filter>
         </FiltersWrapper>
       </HeadWrapper>
+      <BlocksWrapper>
+        <FilterBlock text="All" color={"#dd8cff"} />
+        <FilterBlock text="SAS" color={"#e6f277"} icon="./icons/entities.svg" />
+        <FilterBlock
+          text="SARL"
+          color={"#e6f277"}
+          icon="./icons/entities.svg"
+        />
+        <FilterBlock
+          text="Secondary business"
+          color={"#9aff8f"}
+          icon="./icons/entities.svg"
+        />
+        <FilterBlock
+          text="Communities"
+          color={"#9aff8f"}
+          icon="./icons/entities.svg"
+        />
+        <FilterBlock text="POA" color={"#91fae7"} icon="./icons/entities.svg" />
+        <FilterBlock
+          text="Surves"
+          color={"#91fae7"}
+          icon="./icons/entities.svg"
+        />
+        <FilterBlock text="..." color={"#91fae7"} icon="./icons/entities.svg" />
+      </BlocksWrapper>
       {commentsSorted.map((comment, i) => {
         return comment.title.toLowerCase().includes(inputText.toLowerCase()) ? (
-          <LatestUpdatesCard userComment={comment} />
+          <LatestUpdatesCard key={i} userComment={comment} />
         ) : (
-          <></>
+          <Fragment key={i}></Fragment>
         );
       })}
       <StyledPaginateContainer>

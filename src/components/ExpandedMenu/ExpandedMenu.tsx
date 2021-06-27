@@ -161,36 +161,84 @@ export const ExpandedMenu: FC<Props> = ({ image, name }: Props) => {
         {"client contract".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText to="/workspace">Client contract</LinkText>
+            <LinkText
+              to={{
+                pathname: "/workspace",
+                state: {
+                  title: "Client Contract",
+                  img: "./icons/comments.svg",
+                },
+              }}
+            >
+              Client contract
+            </LinkText>
           </GroupLink>
         )}
 
         {"supplier contract".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText to="/supplier-contract">Supplier contract</LinkText>
+            <LinkText
+              to={{
+                pathname: "/workspace",
+                state: {
+                  title: "Supplier Contract",
+                  img: "./icons/comments.svg",
+                },
+              }}
+            >
+              Supplier contract
+            </LinkText>
           </GroupLink>
         )}
 
         {"corporate".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/entities.svg" />
-            <LinkText to="/corporate">Corporate</LinkText>
+            <LinkText
+              to={{
+                pathname: "/workspace",
+                state: {
+                  title: "Corporate",
+                  img: "./icons/entities.svg",
+                },
+              }}
+            >
+              Corporate
+            </LinkText>
           </GroupLink>
         )}
 
         {"group norms".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/entities.svg" />
-            <LinkText to="/group-norms">Group Norms</LinkText>
+            <LinkText
+              to={{
+                pathname: "/workspace",
+                state: {
+                  title: "Group Norms",
+                  img: "./icons/entities.svg",
+                },
+              }}
+            >
+              Group Norms
+            </LinkText>
           </GroupLink>
         )}
 
         {"real estate contracts".includes(inputText.toLowerCase()) && (
           <GroupLink>
             <LinkIcon src="./icons/comments.svg" />
-            <LinkText to="real-estate-contracts">
-              Real estate contracts
+            <LinkText
+              to={{
+                pathname: "/workspace",
+                state: {
+                  title: "Real Estate Contracts",
+                  img: "./icons/comments.svg",
+                },
+              }}
+            >
+              Real Estate Contracts
             </LinkText>
           </GroupLink>
         )}

@@ -3,12 +3,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
 
-interface Props {
-  name: string;
-  companyName: string;
-  image?: string;
-}
-
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,6 +73,12 @@ const ImageButton = styled.button`
     border: 1px solid white;
   }
 `;
+
+interface Props {
+  name: string;
+  companyName: string;
+  image?: string;
+}
 
 export const LeftMenuUserDetails: FC<Props> = ({
   name,

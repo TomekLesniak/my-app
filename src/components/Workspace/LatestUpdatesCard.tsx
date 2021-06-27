@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
@@ -63,7 +63,7 @@ export const LatestUpdatesCard: FC<Props> = ({ userComment }: Props) => {
       <SecondaryText>{userComment.body}</SecondaryText>
       <DetailsWrapper>
         <DetailWrapper>
-          <img src="./icons/entities.svg " />
+          <img src="./icons/entities.svg " alt="entities" />
           <SecondaryTextBold>SAS</SecondaryTextBold>
         </DetailWrapper>
         <Dot>.</Dot>

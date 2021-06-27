@@ -41,12 +41,6 @@ const InfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-interface Props {
-  displayType: string;
-  header: string;
-  description: string;
-}
-
 interface LiProps {
   displayType: string;
 }
@@ -55,20 +49,32 @@ const Row = styled.div`
   display: flex;
 `;
 
+const SecondaryTextSmall = styled(SecondaryText)`
+  font-size: 0.8rem;
+`;
+
+interface Props {
+  displayType: string;
+  header: string;
+  image: string;
+}
+
 export const EntityListItem: FC<Props> = ({
   displayType,
   header,
-  description,
+  image,
 }: Props) => {
   return (
     <ListItemWrapper displayType={displayType}>
       <Row>
         <ImageWrapper>
-          <img src="./city.jpg" />
+          <img src={image} alt="entity" />
         </ImageWrapper>
         <InfoWrapper>
           <PrimaryTextBold>{header}</PrimaryTextBold>
-          <SecondaryText>{description}</SecondaryText>
+          <SecondaryTextSmall>
+            Caracas 1050, Distrito Capital, Venezuela
+          </SecondaryTextSmall>
         </InfoWrapper>
       </Row>
     </ListItemWrapper>

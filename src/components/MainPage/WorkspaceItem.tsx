@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
@@ -67,6 +68,10 @@ const Detail = styled.div`
   }
 `;
 
+const MyLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const Time = styled(MovedUp)`
   margin-top: 1rem;
   font-size: 0.8rem;
@@ -76,13 +81,23 @@ export const WorkspaceItem: FC = () => {
   return (
     <Wrapper>
       <ImageWrapper>
-        <Image src={"./clientcontract.jpg"} />
+        <Image src={"https://via.placeholder.com/600/92c952"} />
       </ImageWrapper>
       <TypeWrapper>
         <IconWrapper>
           <img src={"./icons/entities.svg"} alt="workspace type" />
         </IconWrapper>
-        <PrimaryText>Supplier contract</PrimaryText>
+        <MyLink
+          to={{
+            pathname: "/workspace",
+            state: {
+              title: "Client Contract",
+              img: "./icons/comments.svg",
+            },
+          }}
+        >
+          <PrimaryText>Client contract</PrimaryText>
+        </MyLink>
       </TypeWrapper>
       <DetailsWrapper>
         <Detail>

@@ -1,7 +1,6 @@
 import { observer } from "mobx-react-lite";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
-import { isEmptyBindingPattern } from "typescript";
 import { User } from "../../entities/user";
 import { useStore } from "../../reducers/storeContext";
 import { Colors } from "../../styledHelpers/Colors";

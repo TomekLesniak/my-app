@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { LatestPublication } from "../../reducers/latestPublicationsStore";
 import {
-  PrimaryText,
   PrimaryTextBold,
   SecondaryText,
 } from "../../styledHelpers/textHelpers";
@@ -31,20 +31,21 @@ const PublicationAdditionalinfo = styled.div`
   font-size: 0.9rem;
 `;
 
-export const PublicationCard: FC = () => {
+interface Props {
+  publicationInfo: LatestPublication;
+}
+
+export const PublicationCard: FC<Props> = ({ publicationInfo }: Props) => {
   return (
     <Wrapper>
-      <PublicationImage src={"./city.jpg"} />
+      <PublicationImage src={publicationInfo.photo} />
       <PublicationDetails>
-        <PrimaryTextBold>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium,
-          sapiente.
-        </PrimaryTextBold>
+        <PrimaryTextBold>{publicationInfo.title}</PrimaryTextBold>
         <PublicationAdditionalinfo>
           <SecondaryText>7 Jan, 2020</SecondaryText>
           <PublicationUser>
-            <img src={"./city.jpg"} />
-            <SecondaryText>User Name</SecondaryText>
+            <img src={publicationInfo.userPhoto} alt="user" />
+            <SecondaryText>{publicationInfo.userName}</SecondaryText>
           </PublicationUser>
         </PublicationAdditionalinfo>
       </PublicationDetails>

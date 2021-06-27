@@ -1,10 +1,6 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../../styledHelpers/Colors";
-import {
-  ProfileText,
-  ProfileTextBold,
-} from "../../styledHelpers/profileHelpers";
 
 const Wrapper = styled.div`
   display: flex;

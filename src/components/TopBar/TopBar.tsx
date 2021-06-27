@@ -1,14 +1,11 @@
 import { observer } from "mobx-react-lite";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import useDropdown from "react-dropdown-hook";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { User } from "../../entities/user";
 import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
-import { sizes } from "../../styledHelpers/breakpoints";
 import { Colors } from "../../styledHelpers/Colors";
-import { fontSize } from "../../styledHelpers/FontSizes";
 import { PrimaryTextBold } from "../../styledHelpers/textHelpers";
 import { ExpandedMenu } from "../ExpandedMenu/ExpandedMenu";
 
@@ -39,11 +36,6 @@ const MenuExpanding = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const MenuText = styled.span`
-  display: inline-block;
-  font-weight: bold;
 `;
 
 const MenuImage = styled.img`

@@ -10,11 +10,10 @@ export class CommentsStore {
 
     loadComments = async () => {
         try {
-            await fetch(`https://jsonplaceholder.typicode.com/comments?_limit=10`)
+            await fetch(`https://jsonplaceholder.typicode.com/comments?`)
             .then((response) => response.json())
             .then(users => {
                 runInAction(() => this.comments = users)
-                console.log(this.comments);
             });
     } catch(error) {
         console.log(error)

@@ -1,5 +1,6 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, Fragment, useEffect, useState } from "react";
 import styled from "styled-components";
+import { Photo } from "../../entities/user";
 import { useStore } from "../../reducers/storeContext";
 import { Colors } from "../../styledHelpers/Colors";
 import {
@@ -134,18 +135,52 @@ export const Entities: FC = () => {
   const [fullScreenMode, setFullScreenMode] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [sortDesc, setSortDesc] = useState(false);
+  const [inputText, setInputText] = useState("");
 
   const handleLinkCopy = () => {
     setLinkCopied(true);
     navigator.clipboard.writeText("localhost:3000/entities");
   };
 
-  const { commonStore } = useStore();
+  const { commonStore, photosStore } = useStore();
+
+  const photos = photosStore.photos;
+  const [sortedPhotos, setSortedPhotos] = useState<Photo[]>([]);
 
   useEffect(() => {
     commonStore.setCurrentComponentName("Entities");
-  }, [commonStore]);
+    const sorted = photos
+      ?.slice(0, 15)
+      .sort((a, b) => {
+        let titleA = a?.title.toUpperCase();
+        let titleB = b?.title.toUpperCase();
+        if (sortDesc) {
+          return titleA > titleB ? -1 : titleA < titleB ? 1 : 0;
+        } else {
+          return titleA < titleB ? -1 : titleA > titleB ? 1 : 0;
+        }
+      })
+      .filter((p) => (isFollowing ? p.id === 1 : true));
+    if (sorted) {
+      setSortedPhotos(sorted);
+    }
+  }, [commonStore, setSortedPhotos, sortDesc, photos, isFollowing]);
 
+  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const text = e.target.value;
+    setInputText(text);
+  };
+
+  const resetAllFilters = () => {
+    setInputText("");
+    setIsFollowing(false);
+    setSortDesc(false);
+  };
+
+  if (!photos) {
+    return <div>loading</div>;
+  }
   return (
     <Wrapper isFullScreenMode={fullScreenMode}>
       {showFilters && <Filters closeHandler={() => setShowFilters(false)} />}
@@ -159,14 +194,14 @@ export const Entities: FC = () => {
             isActive={isMosaic}
             onClick={() => setIsMosaic(true)}
           >
-            <img src="./icons/people.svg" />
+            <img src="./icons/people.svg" alt="people" />
             <PrimaryTextBold>Mosaic</PrimaryTextBold>
           </StyleToggleWrapper>
           <StyleToggleWrapper
             isActive={!isMosaic}
             onClick={() => setIsMosaic(false)}
           >
-            <img src="./icons/publications.svg" />
+            <img src="./icons/publications.svg" alt="publications" />
           </StyleToggleWrapper>
           {fullScreenMode && (
             <CancelText onClick={() => setFullScreenMode(false)}>
@@ -177,14 +212,14 @@ export const Entities: FC = () => {
       </HeaderWrapper>
       <FiltersWrapper>
         <Row>
-          <Filter isActive={false} width={"60px"}>
+          <Filter isActive={false} width={"60px"} onClick={resetAllFilters}>
             <PrimaryTextBold>All</PrimaryTextBold>
             <img src="./icons/arrow-down.svg" alt="expand" />
           </Filter>
           <FilterWrapper>
             <PrimaryTextBold>***</PrimaryTextBold>
           </FilterWrapper>
-          <FilterWrapper>
+          <FilterWrapper onClick={() => setSortDesc(!sortDesc)}>
             <PrimaryText>&#165; Sort</PrimaryText>
           </FilterWrapper>
           <FilterWrapper onClick={() => setShowFilters(!showFilters)}>
@@ -198,7 +233,12 @@ export const Entities: FC = () => {
           </FilterWrapper>
         </Row>
         <Row>
-          <SearchInput size={ButtonSize.small} placeholder={"Search"} />
+          <SearchInput
+            size={ButtonSize.small}
+            placeholder={"Search"}
+            onChangeHandler={inputHandler}
+            value={inputText}
+          />
           <Filter
             width={"150px"}
             isActive={isFollowing}
@@ -212,81 +252,18 @@ export const Entities: FC = () => {
       </FiltersWrapper>
       <div>
         <Ul>
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description="test"
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
-          <EntityListItem
-            header="test"
-            description=""
-            displayType={isMosaic ? "inline-block" : "block"}
-          />
+          {sortedPhotos.map((p, i) => {
+            return p.title.toLowerCase().includes(inputText.toLowerCase()) ? (
+              <EntityListItem
+                key={i}
+                header={p.title}
+                image={p.url}
+                displayType={isMosaic ? "inline-block" : "block"}
+              />
+            ) : (
+              <Fragment key={i}></Fragment>
+            );
+          })}
         </Ul>
       </div>
     </Wrapper>

@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import styled from "styled-components";
-import { User } from "../../entities/user";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
 import {
@@ -81,12 +80,12 @@ export const ResumeYourWorkCard: FC<Props> = ({ userComment }: Props) => {
       <SecondaryText>{userComment.body}</SecondaryText>
       <DetailsWrapper>
         <DetailWrapper>
-          <img src="./icons/house.svg " />
+          <img src="./icons/house.svg" alt="house" />
           <SecondaryTextBold>Subsid. corp.</SecondaryTextBold>
         </DetailWrapper>
         <Dot>.</Dot>
         <DetailWrapper>
-          <img src="./icons/entities.svg " />
+          <img src="./icons/entities.svg" alt="entities" />
           <SecondaryTextBold>{category}</SecondaryTextBold>
         </DetailWrapper>
         <Dot>.</Dot>

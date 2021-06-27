@@ -102,7 +102,7 @@ export const ProfilePanelInformation: FC<Props> = observer(
           </ProfileText>
           <AttachementWrapper>
             <img src="./icons/logout.svg" alt="Attachement" />
-            <a href="#">Attachment-lorem-ipsum-25425.jpg</a>
+            <a href="#dummy">Attachment-lorem-ipsum-25425.jpg</a>
           </AttachementWrapper>
         </Row>
 

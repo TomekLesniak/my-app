@@ -1,12 +1,10 @@
+import { observer } from "mobx-react-lite";
 import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 import { useStore } from "../../reducers/storeContext";
 import { boxShadow } from "../../styledHelpers/boxShadow";
 import { Colors } from "../../styledHelpers/Colors";
-import {
-  PrimaryText,
-  PrimaryTextHeader,
-} from "../../styledHelpers/textHelpers";
+import { PrimaryTextHeader } from "../../styledHelpers/textHelpers";
 import { PublicationCard } from "./PublicationCard";
 
 const Wrapper = styled.div`
@@ -98,28 +96,33 @@ const Publications = styled.div`
   flex-direction: column;
 `;
 
-export const Slider: FC = () => {
-  const { commonStore } = useStore();
+export const Slider: FC = observer(() => {
+  const { commonStore, latestPublicationsStore } = useStore();
+
+  const publications = latestPublicationsStore.latestPublications;
 
   useEffect(() => {
     commonStore.setCurrentComponentName("Home");
   }, [commonStore]);
 
+  if (!publications) return <div>loading</div>;
+
   return (
     <Wrapper>
       <MainPublicationWrapper>
         <MainPublication>
-          <img src={"./city.jpg"} alt="City" />
+          <img src={publications[0].photo} alt="City" />
           <MainPublicationDetails>
             <MainPublicationsDetailsHeader>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Lorem
-              ipsum dolor sit amet.
+              {publications[0].title}
             </MainPublicationsDetailsHeader>
             <MainPublicationInfo>
               <PublicationDate>7 Jan, 2020</PublicationDate>
               <PublicationUser>
-                <img src={"./city.jpg"} alt="City" />
-                <MainPublicationUserText>User Name</MainPublicationUserText>
+                <img src={publications[0].userPhoto} alt="City" />
+                <MainPublicationUserText>
+                  {publications[0].userName}
+                </MainPublicationUserText>
               </PublicationUser>
             </MainPublicationInfo>
           </MainPublicationDetails>
@@ -127,11 +130,12 @@ export const Slider: FC = () => {
       </MainPublicationWrapper>
       <Publications>
         <PrimaryTextHeader>Latest publications</PrimaryTextHeader>
-        <PublicationCard />
-        <PublicationCard />
-        <PublicationCard />
+        {publications.map(
+          (p, i) => i !== 0 && <PublicationCard key={i} publicationInfo={p} />
+        )}
+
         <PrimaryTextHeader>See more publications</PrimaryTextHeader>
       </Publications>
     </Wrapper>
   );
-};
+});
